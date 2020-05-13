@@ -52,7 +52,13 @@ const app = uWS.SSLApp({
 					//console.log(targets_plot_data);
 					respond(ws, 'target-plot-data', targets_plot_data);
 					break;
-					
+				case "request-target-hit-totals":
+					let targets_hit_totals = await mongo.aggregate('targets',{}, { '$sort': { 'hits': -1 }},null,{ '$limit': 10 }, { '$project': { '_id': 0 }});
+					respond(ws, 'target-hit-totals', targets_hit_totals);					
+					break;
+				case "request-system-cpu-usage":
+					respond(ws, 'system-cpu-usage', utils.getCpuUsage());
+					break;	
 				default:
 					break;	
 			}

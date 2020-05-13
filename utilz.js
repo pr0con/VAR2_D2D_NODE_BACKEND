@@ -35,7 +35,11 @@ module.exports = {
 	system_configuration,
 	
 	logData,
-	
+
+	getCpuUsage: () => {
+		return 	os.loadavg();
+	},
+		
 	ArrayBufferToString: function(buffer, encoding) {
 		if (encoding == null) encoding = 'utf8'
 		return Buffer.from(buffer).toString(encoding)
